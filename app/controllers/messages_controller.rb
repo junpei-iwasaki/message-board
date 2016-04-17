@@ -1,5 +1,5 @@
 class MessagesController < ApplicationController
-  before_action :set_message, only: [:edit, :update,:destroy]
+  before_action :set_message, only: [:edit,:update,:destroy]
   def index
     @message = Message.new
     # Messageを全て取得する。
@@ -26,7 +26,7 @@ class MessagesController < ApplicationController
   
   def create
     @message = Message.new(message_params)
-    if@message.save
+    if @message.save
      redirect_to root_path , notice: 'メッセージを保存しました'
    else
       @messages = Message.all
@@ -38,7 +38,7 @@ class MessagesController < ApplicationController
 
   private
   def message_params
-    params.require(:message).permit(:name, :body)
+    params.require(:message).permit(:name,:body)
   end
     
   def set_message

@@ -1,12 +1,14 @@
+
 <div class="panel panel-default">
   <div class="panel-heading">
     メッセージ一覧
   </div>
-  
+
   <div class="panel-body">
     <% @messages.each do |message| %>
       <span class="label label-info"><%= message.name %></span>
       <%= message.body %>
+      <%= message.age %>
        <%= link_to "edit" , edit_message_path(message) %>
         <%= link_to "destroy" , message , method: :delete, data: { confirm: '削除してもよろしいですか？' } %>
         
@@ -15,6 +17,19 @@
   </div>
 </div>
 
+<%= form_for(@message) do |f| %>
+<% if @message.errors.present? %>
+    <div class="alert alert-danger">
+<%= alert %>
+      <ul>
+<% @message.errors.full_messages.each do |full_message| %>
+          <li>
+<%= full_message %>
+          </li>
+<% end %>
+      </ul>
+    </div>
+<% end %>
 
 <%= form_for(@message,html:{class:"form-horizontal"}) do |f| %>
   <div class="form-group">
@@ -22,14 +37,14 @@
     <div class="col-md-8">
       <%= f.text_field :name, :class => "form-control" %>
     </div>
-  </div>
- <div class="form-group">
+　</div>
+  <div class="form-group">
     <label for="text" class="control-label col-md-2">内容:</label>
     <div class="col-md-8">
       <%= f.text_area :body, :class => "form-control"%>
     </div>
   </div>
-<div class="form-group">
+　<div class="form-group">
     <label for="text" class="control-label col-md-2">年齢:</label>
     <div class="col-md-8">
       <%= f.text_field :age, :class => "form-control"%>
@@ -37,7 +52,9 @@
   </div>
   <div class="form-group">
     <div class="col-md-offset-9">
-  <%= f.submit class: "btn btn-sm btn-primary" %>
-    </div>
+  　　<%= f.submit class: "btn btn-sm btn-primary" %>
+  　</div>
   </div>
+ <% end %>
+ 
 <% end %>
